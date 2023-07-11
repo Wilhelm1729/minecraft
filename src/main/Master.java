@@ -78,7 +78,7 @@ public class Master extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
-		
+		time++;
 	}
 	
 	public void run() {
@@ -97,7 +97,6 @@ public class Master extends Canvas implements Runnable {
 			}
 			render();
 			updates++;
-			time++;
 			long delta = System.nanoTime() - startTime;
 			timer += delta;
 			if(timer > 1000000000) {
