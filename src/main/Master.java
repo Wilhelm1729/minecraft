@@ -15,6 +15,7 @@ public class Master extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 200;
+	public static final float SCALE = 0.8f;
 	private boolean running = false;
 	private Thread thread;
 	
@@ -34,7 +35,7 @@ public class Master extends Canvas implements Runnable {
 	
 	public static void main(String[] args) {
 		Master m = new Master();
-		Dimension d = new Dimension(WIDTH * 2, HEIGHT * 2);
+		Dimension d = new Dimension((int) (WIDTH * 2 * SCALE), (int) (HEIGHT * 2 * SCALE));
 		m.setPreferredSize(d);
 		m.setMaximumSize(d);
 		m.setMinimumSize(d);

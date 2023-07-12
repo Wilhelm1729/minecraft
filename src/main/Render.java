@@ -35,7 +35,7 @@ public class Render {
 		
 		for(int i = 0; i < textures.length; i++) {
 			for(int j = 0; j < textures[0].length; j++) {
-				textures[i][j] = tex.getRGB(i, j);
+				textures[i][j] = tex.getRGB(i, j) & 0xFFFFFF;
 			}
 		}
 		
@@ -48,7 +48,7 @@ public class Render {
 	            	int yd = (int) ((y - 32.5) * 0.4);
 	            	int zd = (int) ((z - 32.5) * 0.4);
 	                map[x][y][z] = (int)(Math.random() * 16) | 0;
-	                if (Math.random() > Math.sqrt(Math.sqrt(yd * yd + zd * zd)) - 0.9)
+	                if (Math.random() > Math.sqrt(yd * yd + zd * zd) - 0.8)
 	                    map[x][y][z] = 0;
 	            }
 	        }
@@ -78,7 +78,7 @@ public class Render {
 	    double xCos = Math.cos(xRot);
 	    double xSin = Math.sin(xRot);
 
-	    double ox = 32.5 + time / 100d;
+	    double ox = 32.5 + time / 8d;
 	    double oy = 32.5;
 	    double oz = 32.5;
 		
@@ -131,7 +131,7 @@ public class Render {
 	            		int block = map[(int)xp & 63][(int)yp & 63][(int)zp & 63];
 	            		
 	            		if (block > 0) {
-	            			/*
+	            			
 	            			int u = (int)((zp + xp) * 16) & 15;
 	            			int v = (int)((yp) * 16) & 15;
 	            			if (d==1) {
@@ -140,9 +140,8 @@ public class Render {
 	            				if (yd < 0) {
 	            					//Use this places to distinguish between side and top
 	            				}
-	            			}*/
-	            			
-	            			int cc = 0xFF00FF; // textures[u + 16][v];
+	            			}
+	            			int cc = textures[u][v + 48];
 	            			if (cc > 0) {
 	            				col = cc;
 	            				ddist = 255 - (int)(dist / 32d * 255);
