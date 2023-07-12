@@ -146,7 +146,7 @@ function renderMinecraft() {
                 var yd = (_yd) * ll;
                 var zd = (_zd) * ll;
 
-                var initial = ox - (ox | 0);
+                var initial = ox - (ox | 0); // Gets decimal part
                 if (d == 1)
                     initial = oy - (oy | 0);
                 if (d == 2)
@@ -172,19 +172,19 @@ function renderMinecraft() {
                 while (dist < closest) {
                     var tex = map[(zp & 63) << 12 | (yp & 63) << 6 | (xp & 63)];
 
-                    if (tex > 0) {
-                        var u = ((xp + zp) * 16) & 15;
+                    if (tex > 0) { // Gets pixel position
+                        var u = ((zp + xp) * 16) & 15;
                         var v = ((yp * 16) & 15) + 16;
-                        if (d == 1) {
+                        if (d == 1) { // In the xy plane
                             u = (xp * 16) & 15;
                             v = ((zp * 16) & 15);
                             if (yd < 0)
-                                v += 32;
+                                v += 32;//brigthness
                         }
 
                         var cc = texmap[u + v * 16 + tex * 256 * 3];
-                        if (cc > 0) {
-                            col = cc;
+                        if (cc > 0) { // Checks if transparent
+                            col = cc; //Brightness
                             ddist = 255 - ((dist / 32 * 255) | 0);
                             br = 255 * (255 - ((d + 2) % 3) * 50) / 255;
                             closest = dist;

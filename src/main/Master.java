@@ -13,8 +13,8 @@ public class Master extends Canvas implements Runnable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 640;
-	public static final int HEIGHT = 400;
+	public static final int WIDTH = 320;
+	public static final int HEIGHT = 200;
 	private boolean running = false;
 	private Thread thread;
 	
@@ -39,7 +39,7 @@ public class Master extends Canvas implements Runnable {
 		m.setMaximumSize(d);
 		m.setMinimumSize(d);
 		
-		JFrame f = new JFrame("test");
+		JFrame f = new JFrame("Minecraft");
 		f.setFocusable(true);
 		f.add(m);
 		f.pack();
