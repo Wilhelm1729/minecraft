@@ -15,7 +15,7 @@ public class Master extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 200;
-	public static final float SCALE = 0.8f;
+	public static final float SCALE = 1.5f;
 	private boolean running = false;
 	private Thread thread;
 	
@@ -23,6 +23,8 @@ public class Master extends Canvas implements Runnable {
 	
 	private BufferedImage display;
 	private Render r;
+	private Player p;
+	private Level l;
 	private int[][] frame;
 	
 	int time = 0;
@@ -30,7 +32,13 @@ public class Master extends Canvas implements Runnable {
 	public Master() {
 		display = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		frame = new int[WIDTH][HEIGHT];
-		r = new Render(WIDTH, HEIGHT, frame);
+		p = new Player();
+		l = new Level(p);
+		r = new Render(WIDTH, HEIGHT, frame, l, p);
+		addKeyListener(p);
+		addMouseMotionListener(p);
+		addMouseListener(p);
+		addFocusListener(p);
 	}
 	
 	public static void main(String[] args) {
@@ -80,6 +88,7 @@ public class Master extends Canvas implements Runnable {
 	
 	private void tick() {
 		time++;
+		l.updateLevel();
 	}
 	
 	public void run() {
@@ -101,7 +110,7 @@ public class Master extends Canvas implements Runnable {
 			long delta = System.nanoTime() - startTime;
 			timer += delta;
 			if(timer > 1000000000) {
-				System.out.println("fps: " + updates + " tps: " + tps);
+				System.out.println("fps: " + updates + " tps: " + tps + " Pos:" + p.px + " " + p.py + " " + p.pz + " Rot:" + p.xrot + " " + p.yrot);
 				tps = 0;
 				updates = 0;
 				timer = 0;

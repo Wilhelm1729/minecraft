@@ -12,14 +12,18 @@ public class Render {
 	public int[][] frame;
 	public int[][][] map;
 	
+	Player p;
+	
 	int WIDTH;
 	int HEIGHT;
 	
 	
-	public Render(int WIDTH, int HEIGHT, int[][] frame) {
+	public Render(int WIDTH, int HEIGHT, int[][] frame, Level l, Player p) {
 		this.HEIGHT = HEIGHT;
 		this.WIDTH = WIDTH;
 		this.frame = frame;
+		this.map = l.map;
+		this.p = p;
 		
 		// Load textures
 		
@@ -41,22 +45,6 @@ public class Render {
 		
 		System.out.print("Textures loaded \n");
 		
-		map = new int[64][64][64];
-		for ( int x = 0; x < 64; x++) {
-	        for ( int y = 0; y < 64; y++) {
-	            for ( int z = 0; z < 64; z++) {
-	            	int yd = (int) ((y - 32.5) * 0.4);
-	            	int zd = (int) ((z - 32.5) * 0.4);
-	                map[x][y][z] = (int)(Math.random() * 16) | 0;
-	                if (Math.random() > Math.sqrt(yd * yd + zd * zd) - 0.8)
-	                    map[x][y][z] = 0;
-	            }
-	        }
-	    }
-		
-
-		System.out.print("Map created \n");
-		
 	}
 	
 	public void render(int time) {
@@ -70,17 +58,16 @@ public class Render {
 			}
 		}*/
 		
-	    double xRot = Math.sin(time / 200d * Math.PI * 2) * 0.4d
-	            + Math.PI / 2;
-	    double yRot = Math.cos(time / 200d * Math.PI * 2) * 0.4d;
+	    double xRot = p.xrot;
+	    double yRot = p.yrot;
 	    double yCos = Math.cos(yRot);
 	    double ySin = Math.sin(yRot);
 	    double xCos = Math.cos(xRot);
 	    double xSin = Math.sin(xRot);
 
-	    double ox = 32.5 + time / 8d;
-	    double oy = 32.5;
-	    double oz = 32.5;
+	    double ox = p.px;
+	    double oy = p.py;
+	    double oz = p.pz;
 		
 		for (int x = 0; x < WIDTH; x++) {
 			double ___xd = (x - WIDTH / 2d) / HEIGHT;
